@@ -16,4 +16,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
         while True:
             data = client.recv(1024)
             output_instance.output(data)
-
