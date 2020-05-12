@@ -1,4 +1,4 @@
-from output import Output
+from gamebook.output import Output
 
 
 class NetworkTerminalOutput(Output):
