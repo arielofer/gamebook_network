@@ -7,6 +7,6 @@ class NetworkTerminalOutput(Output):
 
     def output(self, content):
         if content == "":
-            self.client.send(b"no content recieved")
+            self.client.send(bytes("no content recieved", 'utf-8'))
         else:
             self.client.send(content)
