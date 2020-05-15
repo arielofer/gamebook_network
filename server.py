@@ -10,7 +10,7 @@ server_output = TerminalOutput()
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
     socket.bind((HOST, PORT))
-    socket.listen(5)
+    socket.listen()
     while True:
         client, address = socket.accept()
         client_output = NetworkTerminalOutput(client)
