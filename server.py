@@ -1,5 +1,6 @@
 import socket
 from network_terminal_output import NetworkTerminalOutput
+from network_terminal_input import NetworkTerminalInput
 from gamebook.terminal_output import TerminalOutput
 
 
@@ -14,11 +15,12 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
     while True:
         client, address = socket.accept()
         client_output = NetworkTerminalOutput(client)
+        client_input = NetworkTerminalInput(client)
         with client:
             server_output.output(f"connection made from {address}")
             client.settimeout(15)
             while True:
-                data = client.recv(1024)
+                data = client_input.input("enter a word:")
                 server_output.output(f"recieved {data.decode('utf-8')}")
                 if data.decode('utf-8') == "quit":
                     server_output.output(f"closing connection with {address}")
