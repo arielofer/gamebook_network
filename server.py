@@ -1,6 +1,9 @@
 import socket
 from network_terminal_output import NetworkTerminalOutput
+from network_terminal_input import NetworkTerminalInput
 from gamebook.terminal_output import TerminalOutput
+from gamebook.game_manager import GameManager
+from game_manager_example import scenes_list, intro_scene
 
 
 HOST = '0.0.0.0'
@@ -13,16 +16,19 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
     socket.listen()
     while True:
         client, address = socket.accept()
-        client_output = NetworkTerminalOutput(client)
+        output_sender = NetworkTerminalOutput(client)
+        input_sender = NetworkTerminalInput(client)
         with client:
+            # gm = GameManager(scenes_list, output_sender, input_sender)
             server_output.output(f"connection made from {address}")
-            client.settimeout(15)
+            # client.settimeout(15)
             while True:
-                data = client.recv(1024)
-                server_output.output(f"recieved {data.decode('utf-8')}")
-                if data.decode('utf-8') == "quit":
+                # gm.start(intro_scene)
+                data = input_sender.input("enter a word: ")
+                server_output.output(f"recieved {data}")
+                if data == "quit":
                     server_output.output(f"closing connection with {address}")
                     client.close()
                     break
                 else:
-                    client_output.output(data)
+                    output_sender.output("output", data)
