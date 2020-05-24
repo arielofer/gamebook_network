@@ -9,7 +9,7 @@ class NetworkTerminalInput(Input):
         self.output_instance = NetworkTerminalOutput(client)
 
     def input(self, prompt):
-        self.output_instance.output("input", prompt)
+        self.output_instance.output(prompt, "input")
         answer_string = self.client.recv(1024)
         answer = json.loads(answer_string)
         if answer["type"] == "input-answer":
