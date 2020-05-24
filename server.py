@@ -16,18 +16,19 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
     socket.listen()
     while True:
         client, address = socket.accept()
-        client_output = NetworkTerminalOutput(client)
-        client_input = NetworkTerminalInput(client)
+        output_sender = NetworkTerminalOutput(client)
+        input_sender = NetworkTerminalInput(client)
         with client:
-            gm = GameManager(scenes_list, client_output, client_input)
+            # gm = GameManager(scenes_list, output_sender, input_sender)
             server_output.output(f"connection made from {address}")
             # client.settimeout(15)
             while True:
-                data = client_input.input("enter a word: ")
+                # gm.start(intro_scene)
+                data = input_sender.input("enter a word: ")
                 server_output.output(f"recieved {data}")
                 if data == "quit":
                     server_output.output(f"closing connection with {address}")
                     client.close()
                     break
                 else:
-                    client_output.output("output", data)
+                    output_sender.output("output", data)
