@@ -14,10 +14,11 @@ class NetworkTerminalInput(Input):
         answer = json.loads(answer_string)
         if answer["type"] == "input-answer":
             return answer["data"]
+        return "no answer"
 
     def ask_for_user_inputs(self, options):
         user_input_string = ""
         for option in options:
             user_input_string += (f"to {option.show_title()} enter one of the"
                                   f" following {option.show_user_inputs()}\n")
-        self.input(user_input_string + "your choice: ")
+        return self.input(user_input_string + "your choice: ")

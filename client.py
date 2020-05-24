@@ -11,7 +11,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
         message = json.loads(data_string)
         if message["type"] == "input":
             answer = input(message["data"])
-            answer_message = {"type": "input-answer", "data": answer}
+            answer_message = {"data": answer, "type": "input-answer"}
             answer_message_string = json.dumps(answer_message)
             socket.send(bytes(answer_message_string, 'utf-8'))
         if message["type"] == "output":
