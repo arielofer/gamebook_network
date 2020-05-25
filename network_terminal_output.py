@@ -13,4 +13,5 @@ class NetworkTerminalOutput(Output):
 
     def exit(self, exit_reason):
         self.output(exit_reason)
+        self.client.shutdown(2)
         self.client.close()

@@ -16,3 +16,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
             socket.send(bytes(answer_message_string, 'utf-8'))
         if message["type"] == "output":
             print(message["data"])
+            if message["data"] == "you reached the end - game over"\
+               or message["data"] == "exiting...":
+                break
