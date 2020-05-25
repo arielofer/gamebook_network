@@ -21,15 +21,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket:
         with client:
             gm = GameManager(scenes_list, output_sender, input_sender)
             server_output.output(f"connection made from {address}")
-            # client.settimeout(15)
-            # while True:
             gm.start(intro_scene)
-            """    data = input_sender.input("enter a word: ")
-                server_output.output(f"recieved {data}")
-                if data == "quit":
-                    server_output.output(f"closing connection with {address}")
-                    client.close()
-                    break
-                else:
-                    output_sender.output("output", data)
-            """
